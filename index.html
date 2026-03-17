@@ -3,120 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmad Zaky | Professional Trader & Mentor</title>
+    <title>Ahmad Zaky | JeksStars Trader</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* WARNA AURORA LEBIH KONTRAS */
-            --color-1: #1e1b4b; /* Deep Indigo */
-            --color-2: #4c1d95; /* Deep Purple */
-            --color-3: #7c3aed; /* Violet */
-            --color-4: #0ea5e9; /* Sky Blue */
+            --deep-midnight: #0a0514; 
+            --dark-purple: #1a0b2e;
+            --accent-purple: #3b0764;
+            --star-gold: #fbbf24; 
             --text-white: #ffffff;
-            --card-glass: rgba(255, 255, 255, 0.07);
-            --card-border: rgba(255, 255, 255, 0.12);
-            --glow-color: rgba(168, 85, 247, 0.5);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
             font-family: 'Inter', sans-serif; 
             color: var(--text-white);
-            line-height: 1.6;
             min-height: 100vh;
-            /* ANIMASI AURORA DIPERBAIKI */
-            background: linear-gradient(-45deg, var(--color-1), var(--color-2), var(--color-3), var(--color-4));
-            background-size: 400% 400%;
-            animation: auroraEffect 12s ease infinite;
-            background-attachment: fixed; /* Menjaga background tetap saat scroll */
+            background-color: var(--deep-midnight);
+            overflow-x: hidden;
             position: relative;
         }
 
-        /* EFEK KLIK FOTO */
-        body::after {
-            content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
-            width: 150vmax; height: 150vmax;
-            background: radial-gradient(circle, var(--glow-color) 0%, rgba(124, 58, 237, 0) 70%);
-            border-radius: 50%; opacity: 0;
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease;
-            pointer-events: none; z-index: -1;
+        .color-grading-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 10% 20%, var(--accent-purple) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, #000000 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, var(--dark-purple) 0%, transparent 60%);
+            filter: blur(100px);
+            opacity: 0.8;
+            animation: gradingMove 20s infinite alternate;
         }
-        body.profile-clicked::after { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+
+        @keyframes gradingMove {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2) translate(2%, 2%); }
+        }
 
         nav {
-            padding: 15px 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            backdrop-filter: blur(25px); background: rgba(30, 27, 75, 0.7);
-            position: sticky; top: 0; z-index: 1000; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 5%; display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            background: rgba(10, 5, 20, 0.8); position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
+        .nav-left { display: flex; align-items: center; gap: 10px; }
+        .nav-logo { height: 35px; border-radius: 6px; object-fit: cover; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
 
         .hero { padding: 60px 0 40px; text-align: center; }
-        
         .profile-img-wrapper { display: inline-block; position: relative; margin-bottom: 25px; cursor: pointer; }
-        .profile-img {
-            width: 140px; height: 140px; border-radius: 50%;
-            border: 3px solid white; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            object-fit: cover; transition: 0.4s ease;
+        .profile-img { 
+            width: 140px; height: 140px; border-radius: 50%; 
+            border: 2px solid rgba(255,255,255,0.2); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8); 
+            object-fit: cover; 
         }
-        .profile-img:hover { transform: scale(1.05); }
 
-        .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 10px; }
-        .hero p { color: rgba(255, 255, 255, 0.9); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
+        .hero p { opacity: 0.8; font-size: 1.1rem; max-width: 600px; margin: 0 auto 10px; line-height: 1.5; }
 
-        .social-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 40px; }
+        /* SLOGAN TERBARU: Trade Like A Star */
+        .slogan {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-white);
+            margin-bottom: 40px;
+            display: block;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5); /* Glow Emas */
+        }
+        .slogan span {
+            color: var(--star-gold);
+        }
+
+        .social-group { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; }
         .btn-social {
-            text-decoration: none; width: 55px; height: 55px; border-radius: 50%;
+            text-decoration: none; width: 50px; height: 50px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 1.8rem; transition: 0.3s;
-            border: 1.5px solid rgba(255,255,255,0.5);
+            color: white; font-size: 1.5rem; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
         }
-        .btn-wa { background-color: #25d366; }
-        .btn-ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
-        .btn-tt { background-color: #000000; }
-        .btn-social:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+        .btn-wa:hover { background: #25d366; transform: scale(1.15); }
+        .btn-ig:hover { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); transform: scale(1.15); }
+        .btn-tt:hover { background: #000000; transform: scale(1.15); }
 
-        .section-title { margin: 40px 0 25px; font-size: 1.8rem; font-weight: 700; border-bottom: 3px solid var(--color-4); display: inline-block; }
+        .section-title { margin: 40px 0 25px; font-size: 1.6rem; font-weight: 700; opacity: 0.9; letter-spacing: 1px; text-transform: uppercase; }
         
-        .about-box { background: var(--card-glass); padding: 30px; border-radius: 25px; border: 1px solid var(--card-border); backdrop-filter: blur(15px); }
+        .glass-box { 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            padding: 30px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 10px; }
-        .card { background: var(--card-glass); backdrop-filter: blur(15px); border-radius: 25px; overflow: hidden; border: 1px solid var(--card-border); transition: 0.4s; }
-        .card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.12); }
-        .card-img-container { width: 100%; height: 200px; overflow: hidden; }
-        .card img { width: 100%; height: 100%; object-fit: cover; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: rgba(255, 255, 255, 0.02); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-5px); }
+        .card-img { width: 100%; height: 200px; object-fit: cover; opacity: 0.8; }
         .card-body { padding: 25px; }
 
-        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
-        .contact-item { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 20px; text-align: center; border: 1px solid var(--card-border); }
+        footer { text-align: center; padding: 80px 0 40px; opacity: 0.4; font-size: 0.8rem; letter-spacing: 1px; }
 
-        footer { text-align: center; padding: 60px 0 30px; color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; }
-
-        /* KEYFRAMES AURORA YANG DIPERHALUS */
-        @keyframes auroraEffect {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 2.2rem; }
-            .container { padding: 0 15px; }
-        }
+        @media (max-width: 600px) { .hero h1 { font-size: 2.2rem; } }
     </style>
 </head>
 <body id="mainBody">
 
+    <div class="color-grading-bg"></div>
+
     <nav>
-        <div style="font-weight: 600; font-size: 0.9rem; opacity: 0.8;">OFFICIAL PORTFOLIO</div>
-        <div style="font-weight: 800; color: white; letter-spacing: 1px;">JeksStars Trader</div>
+        <div class="nav-left">
+            <img src="logo.jpg" alt="Logo" class="nav-logo">
+            <span style="font-size: 0.7rem; opacity: 0.6; letter-spacing: 1px;">PORTFOLIO</span>
+        </div>
+        <div style="font-weight: 800; color: #ffffff; letter-spacing: 1px;">JeksStars Trader</div>
     </nav>
 
     <div class="container">
@@ -126,37 +134,33 @@
                     <img src="wajah.jpg" alt="Ahmad Zaky" class="profile-img">
                 </div>
             </div>
-            <h1 data-aos="fade-up" data-aos-delay="200">Ahmad Zaky</h1>
-            <p data-aos="fade-up" data-aos-delay="400">Professional Trader & Finance Educator. Fokus pada analisis teknikal dan psikologi market untuk hasil optimum.</p>
+            <h1 data-aos="fade-up">Ahmad Zaky</h1>
+            <p data-aos="fade-up">Professional Trader & Finance Educator. Membantu Anda memahami market dengan cara yang lebih simpel dan profitabel.</p>
             
-            <div class="social-group" data-aos="fade-up" data-aos-delay="600">
+            <span class="slogan" data-aos="fade-up" data-aos-delay="200">Trade Like <span>A Star</span></span>
+            
+            <div class="social-group" data-aos="fade-up" data-aos-delay="400">
                 <a href="https://wa.me/62895383165361" target="_blank" class="btn-social btn-wa"><i class="fab fa-whatsapp"></i></a>
                 <a href="https://instagram.com/jekys___" target="_blank" class="btn-social btn-ig"><i class="fab fa-instagram"></i></a>
                 <a href="https://tiktok.com/@whojekys" target="_blank" class="btn-social btn-tt"><i class="fab fa-tiktok"></i></a>
             </div>
         </section>
 
-        <h2 class="section-title" data-aos="fade-right">About Me</h2>
-        <div class="about-box" data-aos="fade-up">
-            <p>Misi saya adalah mengedukasi masyarakat tentang literasi keuangan dan cara berinvestasi yang cerdas melalui pengalaman nyata.</p>
+        <h2 class="section-title">About Me</h2>
+        <div class="glass-box" data-aos="fade-up">
+            <p style="opacity: 0.8;">Saya adalah trader aktif yang fokus pada analisis teknikal dan manajemen risiko. Misi saya adalah berbagi strategi trading yang sudah teruji kepada Anda untuk mencapai kemandirian finansial.</p>
         </div>
 
-        <h2 class="section-title" data-aos="fade-right">Expertise</h2>
+        <h2 class="section-title">Expertise</h2>
         <div class="grid">
-            <div class="card" data-aos="fade-up">
-                <div class="card-img-container"><img src="keahlian.jpg" alt="Trading"></div>
-                <div class="card-body"><h3>Trading Setup</h3><p>Fokus maksimal dalam analisis harga.</p></div>
+            <div class="card" data-aos="fade-right">
+                <img src="keahlian.jpg" class="card-img" alt="Setup">
+                <div class="card-body"><h3>Trading Setup</h3><p style="opacity: 0.6;">Analisis teknikal mendalam menggunakan price action.</p></div>
             </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="200">
-                <div class="card-img-container"><img src="keahlian2.jpg" alt="Analysis"></div>
-                <div class="card-body"><h3>Market Analysis</h3><p>Psikologi supply & demand.</p></div>
+            <div class="card" data-aos="fade-left">
+                <img src="keahlian2.jpg" class="card-img" alt="Analysis">
+                <div class="card-body"><h3>Market Analysis</h3><p style="opacity: 0.6;">Membaca psikologi pasar melalui supply & demand.</p></div>
             </div>
-        </div>
-
-        <h2 class="section-title" data-aos="fade-right">Contact</h2>
-        <div class="contact-grid" data-aos="fade-up">
-            <div class="contact-item"><h4>Email</h4><p>business@jeks.pro</p></div>
-            <div class="contact-item"><h4>Location</h4><p>Indonesia</p></div>
         </div>
 
         <footer>&copy; 2026 Ahmad Zaky | JeksStars Trader</footer>
@@ -164,13 +168,13 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: false });
+        AOS.init({ duration: 1000, once: true });
 
         const profileBtn = document.getElementById('profileBtn');
         const mainBody = document.getElementById('mainBody');
         profileBtn.addEventListener('click', function() {
             mainBody.classList.add('profile-clicked');
-            setTimeout(function() { mainBody.classList.remove('profile-clicked'); }, 600);
+            setTimeout(() => { mainBody.classList.remove('profile-clicked'); }, 600);
         });
     </script>
 </body>
