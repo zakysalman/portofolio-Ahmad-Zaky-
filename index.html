@@ -11,31 +11,40 @@
     
     <style>
         :root {
-            --deep-midnight: #0a0514; 
-            --dark-purple: #1a0b2e;
+            /* WARNA NORMAL (MIDNIGHT) */
+            --bg-deep: #0a0514; 
+            --bg-dark: #1a0b2e;
             --accent-purple: #3b0764;
-            --star-gold: #fbbf24; 
-            --text-white: #ffffff;
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --card-glass: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.05);
+            
+            /* WARNA EFEK FULL (GOLDEN STARS) */
+            --full-active-gold: #fbbf24;
+            --full-active-glow: rgba(251, 191, 36, 0.6);
+            --full-active-text: #fffdeb;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.5s ease; }
         
         body { 
             font-family: 'Inter', sans-serif; 
-            color: var(--text-white);
+            color: var(--text-main);
             min-height: 100vh;
-            background-color: var(--deep-midnight);
+            background-color: var(--bg-deep);
             overflow-x: hidden;
             position: relative;
         }
 
+        /* LAYER BACKGROUND COLOR GRADING (NORMAL) */
         .color-grading-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
             background: radial-gradient(circle at 10% 20%, var(--accent-purple) 0%, transparent 40%),
                         radial-gradient(circle at 90% 80%, #000000 0%, transparent 50%),
-                        radial-gradient(circle at 50% 50%, var(--dark-purple) 0%, transparent 60%);
+                        radial-gradient(circle at 50% 50%, var(--bg-dark) 0%, transparent 60%);
             filter: blur(100px);
             opacity: 0.8;
             animation: gradingMove 20s infinite alternate;
@@ -43,8 +52,71 @@
 
         @keyframes gradingMove {
             0% { transform: scale(1); }
-            100% { transform: scale(1.2) translate(2%, 2%); }
+            100% { transform: scale(1.1) translate(1%, 1%); }
         }
+
+        /* ----------------------------------------------------------- */
+        /* EFEK FULL AKTIF (DITAMBAHKAN OLEH JS SAAT DIKLIK) */
+        /* ----------------------------------------------------------- */
+        
+        /* 1. Perubahan Background Total */
+        body.full-active .color-grading-bg {
+            background: radial-gradient(circle at 50% 50%, var(--full-active-glow) 0%, transparent 70%),
+                        radial-gradient(circle at 10% 20%, var(--accent-purple) 0%, transparent 40%);
+            filter: blur(80px);
+            opacity: 1;
+            animation: gradingMoveActive 0.5s ease-out;
+        }
+        
+        @keyframes gradingMoveActive {
+            0% { transform: scale(1); filter: blur(100px); }
+            50% { transform: scale(1.5); filter: blur(50px); }
+            100% { transform: scale(1.2); filter: blur(80px); }
+        }
+
+        /* 2. Perubahan Teks Utama & Nama */
+        body.full-active h1, 
+        body.full-active .nav-title,
+        body.full-active .section-title {
+            color: var(--full-active-text);
+            text-shadow: 0 0 15px var(--full-active-glow);
+        }
+
+        /* 3. Perubahan Slogan */
+        body.full-active .slogan {
+            color: var(--full-active-gold);
+            text-shadow: 0 0 20px var(--full-active-gold);
+            transform: scale(1.1);
+        }
+
+        /* 4. Perubahan Tombol Sosial Media */
+        body.full-active .btn-social {
+            border-color: var(--full-active-gold);
+            box-shadow: 0 0 15px var(--full-active-glow);
+        }
+
+        /* 5. Perubahan Kartu Keahlian & Glass Box */
+        body.full-active .glass-box,
+        body.full-active .card {
+            border-color: var(--full-active-gold);
+            background: rgba(251, 191, 36, 0.05);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+        }
+        
+        body.full-active .card-img {
+            opacity: 1;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        /* 6. Perubahan Ripple Foto Profil */
+        body.full-active .profile-img-wrapper::before {
+            background: var(--full-active-gold);
+            box-shadow: 0 0 30px var(--full-active-glow);
+        }
+
+        /* ----------------------------------------------------------- */
+        /* STYLE ELEMEN NORMAL */
+        /* ----------------------------------------------------------- */
 
         nav {
             padding: 12px 5%; display: flex; justify-content: space-between; align-items: center;
@@ -52,60 +124,63 @@
             background: rgba(10, 5, 20, 0.8); position: sticky; top: 0; z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-
         .nav-left { display: flex; align-items: center; gap: 10px; }
         .nav-logo { height: 35px; border-radius: 6px; object-fit: cover; }
+        .nav-title { font-weight: 800; color: #ffffff; letter-spacing: 1px; }
 
         .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
 
         .hero { padding: 60px 0 40px; text-align: center; }
-        .profile-img-wrapper { display: inline-block; position: relative; margin-bottom: 25px; cursor: pointer; }
+        
+        .profile-img-wrapper { display: inline-block; position: relative; margin-bottom: 25px; cursor: pointer; z-index: 10; }
         .profile-img { 
             width: 140px; height: 140px; border-radius: 50%; 
             border: 2px solid rgba(255,255,255,0.2); 
             box-shadow: 0 20px 50px rgba(0,0,0,0.8); 
             object-fit: cover; 
+            transition: all 0.3s ease;
+        }
+        
+        /* RIPPLE EFFECT (LINGKARAN CAHAYA DI BELAKANG FOTO) */
+        .profile-img-wrapper::before {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%; opacity: 0; pointer-events: none; z-index: -1;
+            transition: all 0.6s ease-out;
         }
 
         .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
         .hero p { opacity: 0.8; font-size: 1.1rem; max-width: 600px; margin: 0 auto 10px; line-height: 1.5; }
 
-        /* SLOGAN TERBARU: Trade Like A Star */
         .slogan {
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--text-white);
-            margin-bottom: 40px;
-            display: block;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5); /* Glow Emas */
-        }
-        .slogan span {
-            color: var(--star-gold);
+            font-size: 1.3rem; font-weight: 700; letter-spacing: 2px;
+            color: var(--full-active-gold); margin-bottom: 40px; display: block;
+            text-transform: uppercase; text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .social-group { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; }
         .btn-social {
             text-decoration: none; width: 50px; height: 50px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 1.5rem; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: white; font-size: 1.5rem; transition: 0.4s ease;
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
         }
-        .btn-wa:hover { background: #25d366; transform: scale(1.15); }
-        .btn-ig:hover { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); transform: scale(1.15); }
-        .btn-tt:hover { background: #000000; transform: scale(1.15); }
+        .btn-wa:hover { background: #25d366; transform: translateY(-5px); }
+        .btn-ig:hover { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); transform: translateY(-5px); }
+        .btn-tt:hover { background: #000000; transform: translateY(-5px); }
 
         .section-title { margin: 40px 0 25px; font-size: 1.6rem; font-weight: 700; opacity: 0.9; letter-spacing: 1px; text-transform: uppercase; }
         
         .glass-box { 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            padding: 30px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--card-glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            padding: 30px; border-radius: 24px; border: 1px solid var(--card-border);
         }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: rgba(255, 255, 255, 0.02); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .card { background: rgba(255, 255, 255, 0.02); border-radius: 24px; overflow: hidden; border: 1px solid var(--card-border); transition: 0.4s; }
         .card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-5px); }
         .card-img { width: 100%; height: 200px; object-fit: cover; opacity: 0.8; }
         .card-body { padding: 25px; }
@@ -124,7 +199,7 @@
             <img src="logo.jpg" alt="Logo" class="nav-logo">
             <span style="font-size: 0.7rem; opacity: 0.6; letter-spacing: 1px;">PORTFOLIO</span>
         </div>
-        <div style="font-weight: 800; color: #ffffff; letter-spacing: 1px;">JeksStars Trader</div>
+        <div class="nav-title">JeksStars Trader</div>
     </nav>
 
     <div class="container">
@@ -137,7 +212,7 @@
             <h1 data-aos="fade-up">Ahmad Zaky</h1>
             <p data-aos="fade-up">Professional Trader & Finance Educator. Membantu Anda memahami market dengan cara yang lebih simpel dan profitabel.</p>
             
-            <span class="slogan" data-aos="fade-up" data-aos-delay="200">Trade Like <span>A Star</span></span>
+            <span class="slogan" data-aos="fade-up" data-aos-delay="200">Trade Like A Star</span>
             
             <div class="social-group" data-aos="fade-up" data-aos-delay="400">
                 <a href="https://wa.me/62895383165361" target="_blank" class="btn-social btn-wa"><i class="fab fa-whatsapp"></i></a>
@@ -172,9 +247,20 @@
 
         const profileBtn = document.getElementById('profileBtn');
         const mainBody = document.getElementById('mainBody');
+
         profileBtn.addEventListener('click', function() {
-            mainBody.classList.add('profile-clicked');
-            setTimeout(() => { mainBody.classList.remove('profile-clicked'); }, 600);
+            // Aktifkan Efek Full pada Body
+            mainBody.classList.add('full-active');
+            
+            // Efek Ripple pada Foto
+            this.style.setProperty('--ripple-opacity', '1');
+            this.style.setProperty('--ripple-scale', '1.8');
+
+            // Hapus kelas efek setelah durasi animasi (misalnya 1.5 detik)
+            // agar bisa diklik lagi dan kembali normal.
+            setTimeout(() => {
+                mainBody.classList.remove('full-active');
+            }, 1500); 
         });
     </script>
 </body>
