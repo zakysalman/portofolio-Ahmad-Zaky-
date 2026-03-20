@@ -7,7 +7,7 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -17,6 +17,7 @@
             --bg-dark: #020617;
             --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.08);
+            --iridescent: linear-gradient(135deg, rgba(255,0,255,0.4), rgba(0,255,255,0.4), rgba(255,255,0,0.4), rgba(0,255,0,0.4));
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
@@ -29,47 +30,78 @@
             line-height: 1.6;
         }
 
-        /* --- NAVIGATION MENU (RAPI & CLEAN) --- */
+        /* --- NAVIGATION HEADER (RAPI DI POJOK KANAN) --- */
         header {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 600px; z-index: 1000;
-            background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(20px);
-            border: 1px solid var(--border); border-radius: 100px;
-            padding: 10px 25px; display: flex; justify-content: space-between; align-items: center;
+            position: fixed; top: 0; left: 0;
+            width: 100%; z-index: 1000;
+            background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 8%; display: flex; justify-content: space-between; align-items: center;
         }
 
-        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .logo { font-weight: 800; font-size: 1rem; letter-spacing: 2px; color: #fff; text-decoration: none; }
+        
+        .nav-links { display: flex; gap: 30px; list-style: none; }
         .nav-links a { 
             text-decoration: none; color: #94a3b8; font-size: 0.85rem; 
             font-weight: 600; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
         }
         .nav-links a:hover { color: var(--cyber-neon); }
 
-        /* --- HERO SECTION --- */
-        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
-        section { padding: 100px 0 50px; }
+        /* --- HERO SECTION (TWO COLUMN LAYOUT) --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 5%; }
+        section { padding: 120px 0 60px; }
 
-        .hero { text-align: center; padding-top: 150px; }
-        .profile-container { position: relative; display: inline-block; margin-bottom: 30px; }
+        .hero { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding-top: 180px; }
         
-        .profile-img { 
-            width: 140px; height: 140px; border-radius: 50%; 
-            border: 1px solid var(--border); object-fit: cover; 
-            cursor: pointer; transition: 0.5s; z-index: 10; position: relative;
+        /* Kolom Kiri: Teks */
+        .hero-content { flex: 1; text-align: left; }
+        h1 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1.5px; line-height: 1.2; }
+        .slogan { color: var(--star-gold); font-size: 0.95rem; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 30px; display: block; }
+        .hero-desc { font-size: 1.1rem; opacity: 0.7; margin-bottom: 40px; max-width: 500px; }
+
+        /* Kolom Kanan: KARTU PROFIL IRIDESCENT (TERINSPIRASI CONTOH) */
+        .hero-card-wrapper { flex: 1; display: flex; justify-content: flex-end; position: relative; }
+        
+        .iridescent-card {
+            width: 320px; height: 420px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 30px; transition: 0.5s ease;
+            cursor: pointer;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
         }
-        .profile-img:hover { border-color: var(--cyber-neon); transform: scale(1.05); }
-
-        .star-particle {
-            position: absolute; top: 50%; left: 50%; width: 8px; height: 8px;
-            background: var(--star-silver); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            z-index: 5; pointer-events: none;
+        
+        /* Gradasi Pelangi (Iridiscent) */
+        .iridescent-card::before {
+            content: '';
+            position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px;
+            background: var(--iridescent);
+            filter: blur(25px); opacity: 0.4;
+            z-index: -1; transition: 0.5s ease;
         }
 
-        h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
-        .slogan { color: var(--star-gold); font-size: 0.9rem; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 30px; display: block; }
+        .iridescent-card:hover { transform: translateY(-10px) rotate(-1deg); }
+        .iridescent-card:hover::before { opacity: 0.6; filter: blur(35px); }
 
-        /* --- SOCIAL BAR --- */
-        .social-bar { display: flex; justify-content: center; gap: 15px; margin-bottom: 60px; }
+        /* Foto Profil di Dalam Kartu */
+        .profile-card-img {
+            width: 150px; height: 150px; border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.1); object-fit: cover;
+            margin-bottom: 25px; transition: 0.3s ease;
+        }
+        .iridescent-card:hover .profile-card-img { border-color: var(--cyber-neon); transform: scale(1.05); }
+
+        /* Detail Teks di Kartu */
+        .card-name { font-weight: 800; font-size: 1.2rem; margin-bottom: 5px; }
+        .card-title { font-size: 0.8rem; color: var(--cyber-neon); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        .card-contact { font-size: 0.85rem; opacity: 0.6; text-align: center; }
+
+        /* Tombol Sosial Media (Tetap di Luar/Kiri) */
+        .social-bar { display: flex; gap: 15px; }
         .btn-social {
             width: 45px; height: 45px; border-radius: 12px; border: 1px solid var(--border);
             display: flex; align-items: center; justify-content: center; color: #fff;
@@ -77,10 +109,10 @@
         }
         .btn-social:hover { border-color: var(--cyber-neon); color: var(--cyber-neon); transform: translateY(-3px); }
 
-        /* --- GLASS BOX CLEAN --- */
+        /* --- GLASS BOX CLEAN (ABOUT & VISION) --- */
         .glass-box { 
             background: var(--glass); border: 1px solid var(--border);
-            padding: 40px; border-radius: 30px; margin-bottom: 40px;
+            padding: 40px; border-radius: 30px; margin-bottom: 40px; text-align: left;
         }
         .label { color: var(--cyber-neon); font-size: 0.7rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block; }
         .glass-box p { font-size: 1.05rem; opacity: 0.8; line-height: 1.8; }
@@ -90,15 +122,22 @@
         .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .card { 
             background: var(--glass); border-radius: 24px; border: 1px solid var(--border);
-            padding: 20px; transition: 0.3s;
+            padding: 20px; transition: 0.3s; text-align: left;
         }
-        .card:hover { border-color: var(--cyber-neon); }
+        .card:hover { border-color: var(--cyber-neon); transform: translateY(-5px); }
         .card-img { width: 100%; height: 200px; border-radius: 15px; object-fit: cover; margin-bottom: 20px; opacity: 0.7; }
 
         footer { text-align: center; padding: 80px 0 40px; opacity: 0.3; font-size: 0.7rem; letter-spacing: 2px; }
 
+        /* Bintang Silver Anim */
+        .star-particle {
+            position: absolute; top: 50%; left: 50%; width: 8px; height: 8px;
+            background: var(--star-silver); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            z-index: 5; pointer-events: none;
+        }
+
         /* Blink Anim */
-        .blink-wrap { position: relative; overflow: hidden; border-radius: 50%; }
+        .blink-wrap { position: relative; overflow: hidden; border-radius: 20px; }
         .blink-wrap::after {
             content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
             background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
@@ -106,13 +145,23 @@
         }
         @keyframes blinkMove { 0% { left: -150%; } 20% { left: 150%; } 100% { left: 150%; } }
 
+        @media (max-width: 768px) {
+            header { padding: 15px 5%; }
+            .nav-links { display: none; } /* Sembunyikan menu di HP */
+            .hero { flex-direction: column; text-align: center; padding-top: 150px; }
+            .hero-content { text-align: center; margin-bottom: 50px; }
+            h1 { font-size: 2.2rem; }
+            .hero-card-wrapper { justify-content: center; }
+            .iridescent-card { width: 100%; max-width: 320px; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <div style="font-weight: 800; font-size: 0.9rem; letter-spacing: 1px;">JEKSSTARS</div>
+        <a href="#home" class="logo">JEKSSTARS</a>
         <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#vision">Vision</a></li>
             <li><a href="#expertise">Expertise</a></li>
@@ -122,18 +171,31 @@
     <div class="container">
         
         <section class="hero" id="home">
-            <div class="profile-container" data-aos="fade-down">
-                <div class="blink-wrap">
-                    <img src="wajah.jpg" alt="Ahmad Zaky" class="profile-img" id="profileBtn">
+            <div class="hero-content">
+                <h1 data-aos="fade-right">Halo, Saya Ahmad Zaky</h1>
+                <span class="slogan" data-aos="fade-right" data-aos-delay="100">Trade Like A Star</span>
+                <p class="hero-desc" data-aos="fade-right" data-aos-delay="200">
+                    Mensinergikan presisi analisis Price Action untuk pertumbuhan portofolio yang stabil dan berkelanjutan.
+                </p>
+                
+                <div class="social-bar" data-aos="fade-right" data-aos-delay="300">
+                    <a href="https://wa.me/62895383165361" class="btn-social"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/whojekys" class="btn-social"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com/@whojekys" class="btn-social"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
-            <h1 data-aos="fade-up">Ahmad Zaky</h1>
-            <span class="slogan" data-aos="fade-up" data-aos-delay="100">Trade Like A Star</span>
 
-            <div class="social-bar" data-aos="fade-up" data-aos-delay="200">
-                <a href="https://wa.me/62895383165361" class="btn-social"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://instagram.com/whojekys" class="btn-social"><i class="fab fa-instagram"></i></a>
-                <a href="https://tiktok.com/@whojekys" class="btn-social"><i class="fab fa-tiktok"></i></a>
+            <div class="hero-card-wrapper" data-aos="fade-left">
+                <div class="iridescent-card blink-wrap" id="profileCard">
+                    <img src="wajah.jpg" alt="Ahmad Zaky" class="profile-card-img">
+                    <p class="card-name">Ahmad Zaky</p>
+                    <p class="card-title">Pro Trader</p>
+                    <p class="card-contact">
+                        Supply & Demand <br>
+                        Price Action Specialist <br>
+                        Trade Like A Star★
+                    </p>
+                </div>
             </div>
         </section>
 
@@ -174,19 +236,25 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Efek Bintang Silver Klik
-        const profileBtn = document.getElementById('profileBtn');
-        const profileContainer = document.querySelector('.profile-container');
+        // Efek Bintang Silver Klik (Sekarang di Kartu Profil)
+        const profileCard = document.getElementById('profileCard');
 
-        profileBtn.addEventListener('click', function() {
+        profileCard.addEventListener('click', function(e) {
+            // Animasi Flash pada gambar
+            this.style.filter = "brightness(1.5)";
+            setTimeout(() => this.style.filter = "brightness(1)", 300);
+
+            // Munculkan Bintang Silver
             for (let i = 0; i < 15; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star-particle');
-                profileContainer.appendChild(star);
+                this.appendChild(star);
+                
                 const angle = Math.random() * Math.PI * 2;
-                const dist = 60 + Math.random() * 80;
+                const dist = 70 + Math.random() * 90;
                 const x = Math.cos(angle) * dist;
                 const y = Math.sin(angle) * dist;
+                
                 star.animate([
                     { transform: 'translate(-50%, -50%) scale(0)', opacity: 0 },
                     { transform: 'translate(-50%, -50%) scale(1.2)', opacity: 1, offset: 0.2 },
