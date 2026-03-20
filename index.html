@@ -25,8 +25,8 @@
         /* --- HEADER --- */
         header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border); padding: 18px 0;
+            background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border); padding: 15px 0;
         }
         .header-container {
             max-width: 1200px; margin: 0 auto; padding: 0 5%;
@@ -38,49 +38,60 @@
         .nav-links a, .nav-links span { text-decoration: none; color: #9ca3af; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
         .nav-links a:hover, .nav-links span:hover { color: #fff; }
 
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- MOBILE NAV --- */
+        .mobile-nav {
+            position: fixed; top: 0; right: -100%; width: 70%; height: 100vh;
+            background: var(--bg); z-index: 2000; padding: 80px 40px;
+            display: flex; flex-direction: column; gap: 30px; transition: 0.4s;
+        }
+        .mobile-nav.active { right: 0; }
+        .mobile-nav a, .mobile-nav span { text-decoration: none; color: #fff; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+
         /* --- LOGO BERPUTAR --- */
-        .page-logo-wrapper { display: flex; justify-content: center; align-items: center; margin-bottom: 30px; position: relative; width: 100%; }
-        .rotating-logo-container { width: 180px; height: 180px; position: relative; display: flex; justify-content: center; align-items: center; }
+        .page-logo-wrapper { display: flex; justify-content: center; align-items: center; margin-bottom: 30px; position: relative; }
+        .rotating-logo-container { width: 150px; height: 150px; position: relative; }
         .rotating-logo-container img { width: 100%; height: 100%; object-fit: contain; animation: spinY 10s infinite linear; }
-        .glow-effect { position: absolute; width: 140px; height: 140px; background: var(--primary); border-radius: 50%; filter: blur(60px); opacity: 0.5; z-index: -1; animation: pulseGlow 3s infinite alternate; }
+        .glow-effect { position: absolute; width: 120px; height: 120px; background: var(--primary); border-radius: 50%; filter: blur(50px); opacity: 0.4; z-index: -1; animation: pulse 3s infinite alternate; }
 
         @keyframes spinY { from { transform: rotateY(0deg); } to { transform: rotateY(-360deg); } }
-        @keyframes pulseGlow { from { transform: scale(0.9); opacity: 0.4; } to { transform: scale(1.1); opacity: 0.7; } }
+        @keyframes pulse { from { transform: scale(0.9); opacity: 0.3; } to { transform: scale(1.1); opacity: 0.6; } }
 
         /* --- HERO --- */
         .container { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: space-between; gap: 50px; padding-top: 100px; }
-        .hero-text { flex: 1.2; text-align: left; }
-        .slogan { font-size: 1.1rem; margin-bottom: 10px; font-weight: 800; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1.5px; text-transform: uppercase; }
-        .hero-text h1 { font-size: 4rem; font-weight: 800; margin-bottom: 20px; }
+        .hero-text { flex: 1.2; }
+        .slogan { font-size: 1rem; margin-bottom: 10px; font-weight: 800; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; text-transform: uppercase; }
+        .hero-text h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; }
+        
+        .social-icons { display: flex; gap: 15px; margin-top: 30px; }
+        .icon-box { width: 45px; height: 45px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; transition: 0.3s; }
+        .icon-box:hover { border-color: var(--primary); transform: translateY(-5px); }
 
-        /* SOSIAL MEDIA */
-        .social-icons { display: flex; gap: 15px; margin-top: 30px; justify-content: flex-start; }
-        .icon-box { width: 48px; height: 48px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; font-size: 1.2rem; transition: 0.3s; }
-        .icon-box:hover { color: var(--primary); border-color: var(--primary); transform: translateY(-5px); }
+        /* --- FOTO TILT --- */
+        .hero-visual { flex: 0.8; display: flex; justify-content: center; }
+        .main-card { width: 300px; padding: 25px; background: #111827; border-radius: 25px; border: 1px solid var(--border); text-align: center; }
+        .profile-img { width: 100%; border-radius: 15px; margin-bottom: 15px; }
 
-        /* FOTO PROFIL (WAJAH) */
-        .hero-visual { flex: 0.8; display: flex; justify-content: flex-end; }
-        .main-card { width: 320px; padding: 20px; background: #111827; border-radius: 25px; border: 1px solid var(--border); text-align: center; }
-        .profile-img { width: 100%; border-radius: 18px; margin-bottom: 15px; }
-
-        /* EXPERTISE */
-        .expertise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 50px; padding-bottom: 100px; }
+        /* --- EXPERTISE --- */
+        .expertise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 80px 0; }
         .card-exp { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 30px; cursor: pointer; transition: 0.4s; }
         .card-exp:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .card-exp i { font-size: 2rem; color: var(--primary); margin-bottom: 15px; display: block; }
 
-        /* MODAL */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(10px); z-index: 2000; justify-content: center; align-items: center; }
+        /* --- MODAL POP-UP (ABOUT & FOTO) --- */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 7, 18, 0.95); z-index: 3000; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
-        .modal-content { background: #0f172a; padding: 40px; border-radius: 25px; border: 1px solid var(--primary); max-width: 500px; position: relative; text-align: center; }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; }
+        .modal-content { background: #0f172a; padding: 40px; border-radius: 25px; border: 1px solid var(--primary); max-width: 500px; width: 90%; position: relative; text-align: center; }
+        #fire-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .modal-img { max-width: 90%; max-height: 80vh; border: 2px solid var(--primary); border-radius: 10px; }
 
         @media (max-width: 850px) {
             .nav-links { display: none; }
-            .hero { flex-direction: column; text-align: center; padding-top: 140px; }
-            .hero-text { text-align: center; }
+            .menu-toggle { display: block; }
+            .hero { flex-direction: column; text-align: center; padding-top: 120px; }
             .social-icons { justify-content: center; }
-            .hero-visual { justify-content: center; width: 100%; }
             .expertise-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -94,10 +105,19 @@
                 <li><a href="#home">Home</a></li>
                 <li><span onclick="openAbout()">About</span></li>
                 <li><a href="#expertise">Expertise</a></li>
-                <li><a href="https://wa.me/62895383165361" target="_blank" style="border: 1px solid var(--primary); padding: 7px 18px; border-radius: 25px; color: var(--primary);">CONTACT</a></li>
+                <li><a href="https://wa.me/62895383165361" style="color:var(--primary)">Contact</a></li>
             </ul>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
         </div>
     </header>
+
+    <div class="mobile-nav" id="mobileNav">
+        <div style="text-align:right; font-size:2rem;" onclick="toggleMenu()">&times;</div>
+        <a href="#home" onclick="toggleMenu()">Home</a>
+        <span onclick="openAbout(); toggleMenu()">About</span>
+        <a href="#expertise" onclick="toggleMenu()">Expertise</a>
+        <a href="https://wa.me/62895383165361">Contact</a>
+    </div>
 
     <div class="container">
         <section class="hero" id="home">
@@ -105,13 +125,12 @@
                 <div class="page-logo-wrapper">
                     <div class="glow-effect"></div>
                     <div class="rotating-logo-container">
-                        <img src="125737.png" alt="Logo">
+                        <img src="nama logo.JPG" alt="Logo">
                     </div>
                 </div>
                 <p class="slogan">Trade Like A Star</p>
                 <h1>Ahmad Zaky</h1>
-                <p style="color: #9ca3af;">Profesional trader dengan fokus pada analisis teknikal mendalam.</p>
-                
+                <p style="color:#9ca3af;">Profesional trader yang fokus pada hasil konsisten melalui analisis tajam.</p>
                 <div class="social-icons">
                     <a href="https://wa.me/62895383165361" class="icon-box"><i class="fab fa-whatsapp"></i></a>
                     <a href="https://instagram.com/whojekys" class="icon-box"><i class="fab fa-instagram"></i></a>
@@ -120,44 +139,77 @@
             </div>
 
             <div class="hero-visual" data-aos="fade-left">
-                <div class="main-card" data-tilt>
-                    <img src="127534.jpg" class="profile-img" alt="Wajah">
-                    <h3 style="letter-spacing: 1px;">JEKSSTARS</h3>
-                    <p style="color: var(--accent); font-size: 0.8rem; font-weight: 800;">PRO TRADER</p>
+                <div class="main-card">
+                    <img src="wajah.jpg" class="profile-img" alt="Zaky">
+                    <h3>JEKSSTARS</h3>
+                    <p style="color:var(--accent); font-weight:800; font-size:0.8rem;">PRO TRADER</p>
                 </div>
             </div>
         </section>
 
         <section id="expertise" class="expertise-grid">
             <div class="card-exp" data-aos="fade-up" onclick="showImg('keahlian.jpg')">
-                <h3 style="color: var(--primary); margin-bottom: 10px;"><i class="fas fa-chart-line"></i> MARKET STRUCTURE</h3>
-                <p style="color: #9ca3af; font-size: 0.9rem;">Analisis mendalam mengenai BOS dan CHoCH.</p>
+                <i class="fas fa-chart-line"></i>
+                <h3>SUPPORT & RESISTANCE</h3>
+                <p>Memetakan area harga krusial untuk menentukan titik pantulan yang valid.</p>
             </div>
             <div class="card-exp" data-aos="fade-up" data-aos-delay="100" onclick="showImg('keahlian2.jpg')">
-                <h3 style="color: var(--primary); margin-bottom: 10px;"><i class="fas fa-coins"></i> SUPPLY & DEMAND</h3>
-                <p style="color: #9ca3af; font-size: 0.9rem;">Menentukan zona entry institusional yang presisi.</p>
+                <i class="fas fa-microchip"></i>
+                <h3>ANALISIS & SET UP</h3>
+                <p>Menyusun set up trading berdasarkan analisis market terakhir.</p>
             </div>
         </section>
     </div>
 
     <div class="modal-overlay" id="modalAbout">
+        <canvas id="fire-canvas"></canvas>
         <div class="modal-content">
-            <span class="close-btn" onclick="closeAbout()">&times;</span>
-            <h2 style="color: var(--primary); margin-bottom: 20px;">Visi & Misi</h2>
-            <p style="color: #cbd5e1; line-height: 1.6;">Menjadi trader independen yang menguasai pergerakan harga pasar secara objektif.</p>
+            <span onclick="closeAbout()" style="position:absolute; top:10px; right:20px; font-size:2rem; cursor:pointer;">&times;</span>
+            <h2 style="color:var(--primary); margin-bottom:20px;">Visi & Misi</h2>
+            <p style="color:#cbd5e1; line-height:1.6; text-align:left;">
+                <strong>Visi:</strong> Menjadi platform edukasi trading terdepan yang membantu trader mencapai kemandirian finansial.<br><br>
+                <strong>Misi:</strong> Memberikan analisis pasar akurat, membangun mentalitas disiplin, dan strategi teruji bagi komunitas JeksStars.
+            </p>
         </div>
+    </div>
+
+    <div class="modal-overlay" id="modalFoto">
+        <span onclick="closeImg()" style="position:absolute; top:20px; right:30px; font-size:3rem; cursor:pointer;">&times;</span>
+        <img src="" id="modalImg" class="modal-img">
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     <script>
         AOS.init({ duration: 1000 });
-        function openAbout() { document.getElementById('modalAbout').classList.add('active'); }
+        function toggleMenu() { document.getElementById('mobileNav').classList.toggle('active'); }
+        
+        // Modal About
+        function openAbout() { document.getElementById('modalAbout').classList.add('active'); startFire(); }
         function closeAbout() { document.getElementById('modalAbout').classList.remove('active'); }
         
-        VanillaTilt.init(document.querySelector(".main-card"), {
-            max: 20, speed: 1000, glare: true, "max-glare": 0.5, gyroscope: true
-        });
+        // Modal Foto
+        function showImg(src) { document.getElementById('modalFoto').classList.add('active'); document.getElementById('modalImg').src = src; }
+        function closeImg() { document.getElementById('modalFoto').classList.remove('active'); }
+
+        // Tilt
+        VanillaTilt.init(document.querySelector(".main-card"), { max: 20, speed: 1000, glare: true, "max-glare": 0.5, gyroscope: true });
+
+        // Animasi Api Ungu
+        const canvas = document.getElementById('fire-canvas');
+        const ctx = canvas.getContext('2d');
+        function startFire() {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            let p = []; for(let i=0; i<50; i++) p.push({x: Math.random()*canvas.width, y: canvas.height, s: Math.random()*3, v: Math.random()*2});
+            function anim() {
+                if(!document.getElementById('modalAbout').classList.contains('active')) return;
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                ctx.fillStyle = "rgba(168, 85, 247, 0.3)";
+                p.forEach(i => { i.y -= i.v; if(i.y<0) i.y=canvas.height; ctx.beginPath(); ctx.arc(i.x, i.y, i.s, 0, 7); ctx.fill(); });
+                requestAnimationFrame(anim);
+            } anim();
+        }
     </script>
 </body>
-</html>
+                </html>
+            
