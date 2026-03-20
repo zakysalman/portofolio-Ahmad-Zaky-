@@ -5,161 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahmad Zaky | JeksStars Trader</title>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --star-gold: #fbbf24;
-            --star-silver: #f8fafc;
-            --cyber-neon: #a855f7; /* Purple Glow */
-            --bg-dark: #020617;
+            --primary: #a855f7; /* Purple Neon */
+            --accent: #fbbf24;  /* Gold Star */
+            --bg: #020617;      /* Deep Dark */
             --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.08);
-            --iridescent: linear-gradient(135deg, rgba(255,0,255,0.4), rgba(0,255,255,0.4), rgba(255,255,0,0.4), rgba(0,255,0,0.4));
+            --iridescent: linear-gradient(135deg, rgba(168,85,247,0.4), rgba(0,255,255,0.4), rgba(251,191,36,0.3));
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--bg);
             color: #fff;
-            background: var(--bg-dark);
-            overflow-x: hidden;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* --- NAVIGATION HEADER (RAPI DI POJOK KANAN) --- */
+        /* --- NAVIGATION (POJOK KANAN ATAS) --- */
         header {
-            position: fixed; top: 0; left: 0;
-            width: 100%; z-index: 1000;
-            background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(20px);
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 25px 8%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
-            padding: 20px 8%; display: flex; justify-content: space-between; align-items: center;
         }
 
-        .logo { font-weight: 800; font-size: 1rem; letter-spacing: 2px; color: #fff; text-decoration: none; }
-        
-        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; text-decoration: none; color: #fff; }
+        .logo span { color: var(--primary); }
+
+        .nav-links { display: flex; gap: 35px; list-style: none; }
         .nav-links a { 
             text-decoration: none; color: #94a3b8; font-size: 0.85rem; 
             font-weight: 600; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+            position: relative;
         }
-        .nav-links a:hover { color: var(--cyber-neon); }
-
-        /* --- HERO SECTION (TWO COLUMN LAYOUT) --- */
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 5%; }
-        section { padding: 120px 0 60px; }
-
-        .hero { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding-top: 180px; }
-        
-        /* Kolom Kiri: Teks */
-        .hero-content { flex: 1; text-align: left; }
-        h1 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1.5px; line-height: 1.2; }
-        .slogan { color: var(--star-gold); font-size: 0.95rem; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 30px; display: block; }
-        .hero-desc { font-size: 1.1rem; opacity: 0.7; margin-bottom: 40px; max-width: 500px; }
-
-        /* Kolom Kanan: KARTU PROFIL IRIDESCENT (TERINSPIRASI CONTOH) */
-        .hero-card-wrapper { flex: 1; display: flex; justify-content: flex-end; position: relative; }
-        
-        .iridescent-card {
-            width: 320px; height: 420px;
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            position: relative; overflow: hidden;
-            display: flex; flex-direction: column; align-items: center;
-            padding: 30px; transition: 0.5s ease;
-            cursor: pointer;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px; 
+            bottom: -5px; left: 0; background: var(--primary); transition: 0.3s;
         }
-        
-        /* Gradasi Pelangi (Iridiscent) */
-        .iridescent-card::before {
-            content: '';
-            position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px;
-            background: var(--iridescent);
-            filter: blur(25px); opacity: 0.4;
-            z-index: -1; transition: 0.5s ease;
+        .nav-links a:hover { color: #fff; }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- HERO SECTION (LAYOUT DUA KOLOM) --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+        .hero { 
+            min-height: 100vh; display: flex; align-items: center; 
+            justify-content: space-between; gap: 50px; padding-top: 100px;
         }
 
-        .iridescent-card:hover { transform: translateY(-10px) rotate(-1deg); }
-        .iridescent-card:hover::before { opacity: 0.6; filter: blur(35px); }
+        .hero-content { flex: 1.2; text-align: left; }
+        .hero-content h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 15px; letter-spacing: -2px; }
+        .slogan { color: var(--accent); font-size: 1rem; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 30px; display: block; }
+        .hero-desc { font-size: 1.1rem; color: #94a3b8; margin-bottom: 40px; max-width: 500px; }
 
-        /* Foto Profil di Dalam Kartu */
-        .profile-card-img {
-            width: 150px; height: 150px; border-radius: 50%;
-            border: 3px solid rgba(255,255,255,0.1); object-fit: cover;
-            margin-bottom: 25px; transition: 0.3s ease;
-        }
-        .iridescent-card:hover .profile-card-img { border-color: var(--cyber-neon); transform: scale(1.05); }
-
-        /* Detail Teks di Kartu */
-        .card-name { font-weight: 800; font-size: 1.2rem; margin-bottom: 5px; }
-        .card-title { font-size: 0.8rem; color: var(--cyber-neon); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
-        .card-contact { font-size: 0.85rem; opacity: 0.6; text-align: center; }
-
-        /* Tombol Sosial Media (Tetap di Luar/Kiri) */
+        /* Social Bar */
         .social-bar { display: flex; gap: 15px; }
         .btn-social {
-            width: 45px; height: 45px; border-radius: 12px; border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center; color: #fff;
-            text-decoration: none; transition: 0.3s; background: var(--glass);
+            width: 48px; height: 48px; border-radius: 14px; background: var(--glass);
+            border: 1px solid var(--border); display: flex; align-items: center; 
+            justify-content: center; color: #fff; text-decoration: none; transition: 0.3s;
         }
-        .btn-social:hover { border-color: var(--cyber-neon); color: var(--cyber-neon); transform: translateY(-3px); }
+        .btn-social:hover { transform: translateY(-5px); border-color: var(--primary); color: var(--primary); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.2); }
 
-        /* --- GLASS BOX CLEAN (ABOUT & VISION) --- */
+        /* Sisi Kanan: Kartu Profil Interaktif */
+        .hero-visual { flex: 0.8; display: flex; justify-content: flex-end; perspective: 1000px; }
+        .main-card {
+            width: 320px; padding: 25px; background: var(--bg); border-radius: 24px;
+            border: 1px solid var(--border); position: relative; overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); cursor: pointer;
+            transform-style: preserve-3d;
+        }
+        .main-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--iridescent); filter: blur(40px); opacity: 0.2; z-index: -1;
+        }
+
+        .profile-img {
+            width: 100%; height: 280px; object-fit: cover; border-radius: 18px;
+            margin-bottom: 20px; border: 1px solid var(--border);
+            transform: translateZ(30px);
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(168, 85, 247, 0.1); }
+            50% { box-shadow: 0 0 30px rgba(168, 85, 247, 0.4); }
+        }
+
+        .card-info { text-align: center; transform: translateZ(20px); }
+        .card-info h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 5px; }
+        .card-info p { font-size: 0.8rem; color: var(--primary); font-weight: 700; letter-spacing: 2px; }
+
+        /* --- SECTION BOXES --- */
+        section { padding: 100px 0 60px; }
+        .label { color: var(--primary); font-size: 0.75rem; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20px; display: block; }
+        
         .glass-box { 
             background: var(--glass); border: 1px solid var(--border);
-            padding: 40px; border-radius: 30px; margin-bottom: 40px; text-align: left;
+            padding: 40px; border-radius: 30px; margin-bottom: 40px;
         }
-        .label { color: var(--cyber-neon); font-size: 0.7rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block; }
-        .glass-box p { font-size: 1.05rem; opacity: 0.8; line-height: 1.8; }
-        .vision-text { border-left: 2px solid var(--star-gold); padding-left: 25px; font-style: italic; }
+        .glass-box p { font-size: 1.1rem; color: #cbd5e1; line-height: 1.8; }
 
-        /* --- CARDS KEAHLIAN --- */
-        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { 
-            background: var(--glass); border-radius: 24px; border: 1px solid var(--border);
-            padding: 20px; transition: 0.3s; text-align: left;
+        /* Expertise Cards */
+        .grid-expertise { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card-exp {
+            background: var(--glass); padding: 35px; border-radius: 24px;
+            border: 1px solid var(--border); transition: 0.4s;
         }
-        .card:hover { border-color: var(--cyber-neon); transform: translateY(-5px); }
-        .card-img { width: 100%; height: 200px; border-radius: 15px; object-fit: cover; margin-bottom: 20px; opacity: 0.7; }
+        .card-exp:hover { border-color: var(--primary); transform: translateY(-10px); background: rgba(168, 85, 247, 0.02); }
+        .card-exp i { font-size: 2.2rem; color: var(--primary); margin-bottom: 25px; display: block; }
 
-        footer { text-align: center; padding: 80px 0 40px; opacity: 0.3; font-size: 0.7rem; letter-spacing: 2px; }
-
-        /* Bintang Silver Anim */
+        /* --- ANIMATIONS --- */
         .star-particle {
-            position: absolute; top: 50%; left: 50%; width: 8px; height: 8px;
-            background: var(--star-silver); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            z-index: 5; pointer-events: none;
+            position: absolute; width: 10px; height: 10px; background: var(--accent);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            pointer-events: none; z-index: 100;
         }
 
-        /* Blink Anim */
-        .blink-wrap { position: relative; overflow: hidden; border-radius: 20px; }
+        .blink-wrap { position: relative; overflow: hidden; }
         .blink-wrap::after {
             content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
-            transform: skewX(-20deg); animation: blinkMove 6s infinite;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
+            transform: skewX(-20deg); animation: blinkMove 7s infinite;
         }
         @keyframes blinkMove { 0% { left: -150%; } 20% { left: 150%; } 100% { left: 150%; } }
 
-        @media (max-width: 768px) {
-            header { padding: 15px 5%; }
-            .nav-links { display: none; } /* Sembunyikan menu di HP */
-            .hero { flex-direction: column; text-align: center; padding-top: 150px; }
-            .hero-content { text-align: center; margin-bottom: 50px; }
-            h1 { font-size: 2.2rem; }
-            .hero-card-wrapper { justify-content: center; }
-            .iridescent-card { width: 100%; max-width: 320px; }
+        footer { text-align: center; padding: 60px 0; border-top: 1px solid var(--border); opacity: 0.4; font-size: 0.75rem; letter-spacing: 1px; }
+
+        @media (max-width: 900px) {
+            header { padding: 20px 5%; }
+            .nav-links { display: none; }
+            .hero { flex-direction: column; text-align: center; padding-top: 140px; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-content { margin-bottom: 50px; }
+            .hero-visual { width: 100%; justify-content: center; }
+            .social-bar { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#home" class="logo">JEKSSTARS</a>
+        <a href="#home" class="logo">JEKS<span>STARS</span></a>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -169,97 +162,91 @@
     </header>
 
     <div class="container">
-        
         <section class="hero" id="home">
-            <div class="hero-content">
-                <h1 data-aos="fade-right">Halo, Saya Ahmad Zaky</h1>
-                <span class="slogan" data-aos="fade-right" data-aos-delay="100">Trade Like A Star</span>
-                <p class="hero-desc" data-aos="fade-right" data-aos-delay="200">
-                    Mensinergikan presisi analisis Price Action untuk pertumbuhan portofolio yang stabil dan berkelanjutan.
-                </p>
-                
-                <div class="social-bar" data-aos="fade-right" data-aos-delay="300">
-                    <a href="https://wa.me/62895383165361" class="btn-social"><i class="fab fa-whatsapp"></i></a>
-                    <a href="https://instagram.com/whojekys" class="btn-social"><i class="fab fa-instagram"></i></a>
-                    <a href="https://tiktok.com/@whojekys" class="btn-social"><i class="fab fa-tiktok"></i></a>
+            <div class="hero-content" data-aos="fade-right">
+                <span class="slogan">Trade Like A Star</span>
+                <h1>Ahmad Zaky</h1>
+                <p class="hero-desc">Professional Trader & Financial Educator spesialisasi Price Action. Menghadirkan presisi analisis untuk pertumbuhan portofolio Anda.</p>
+                <div class="social-bar">
+                    <a href="https://wa.me/62895383165361" target="_blank" class="btn-social"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/whojekys" target="_blank" class="btn-social"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com/@whojekys" target="_blank" class="btn-social"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
 
-            <div class="hero-card-wrapper" data-aos="fade-left">
-                <div class="iridescent-card blink-wrap" id="profileCard">
-                    <img src="wajah.jpg" alt="Ahmad Zaky" class="profile-card-img">
-                    <p class="card-name">Ahmad Zaky</p>
-                    <p class="card-title">Pro Trader</p>
-                    <p class="card-contact">
-                        Supply & Demand <br>
-                        Price Action Specialist <br>
-                        Trade Like A Star★
-                    </p>
+            <div class="hero-visual" data-aos="fade-left">
+                <div class="main-card blink-wrap" id="profileCard" data-tilt data-tilt-max="12" data-tilt-speed="500">
+                    <img src="wajah.jpg" alt="Ahmad Zaky" class="profile-img">
+                    <div class="card-info">
+                        <h3>Ahmad Zaky</h3>
+                        <p>PRO TRADER</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="about" data-aos="fade-up">
+            <span class="label">01 / About Me</span>
             <div class="glass-box">
-                <span class="label">01. About Me</span>
-                <p>Halo! Saya <strong>Ahmad Zaky</strong>. Sebagai seorang spesialis dalam dunia trading, saya mendedikasikan diri untuk memahami dinamika pasar secara mendalam. Saya percaya bahwa kesuksesan finansial bermula dari kombinasi antara strategi yang tajam dan mentalitas yang tenang.</p>
+                <p>Halo! Saya <strong>Ahmad Zaky</strong>. Sebagai spesialis dalam dunia trading, saya mendedikasikan diri untuk memahami dinamika pasar secara mendalam. Saya percaya bahwa kesuksesan finansial bermula dari kombinasi antara strategi yang tajam dan mentalitas yang tenang.</p>
             </div>
         </section>
 
         <section id="vision" data-aos="fade-up">
-            <div class="glass-box">
-                <span class="label">02. Vision & Mission</span>
-                <p class="vision-text">"Mensinergikan presisi analisis Price Action dengan disiplin manajemen risiko yang ketat untuk mengorkestrasi pertumbuhan portofolio yang stabil dan berkelanjutan bagi masa depan."</p>
+            <span class="label">02 / Vision & Mission</span>
+            <div class="glass-box" style="border-left: 4px solid var(--accent);">
+                <p style="font-style: italic; font-size: 1.2rem; color: #fff;">"Mensinergikan presisi analisis Price Action dengan disiplin manajemen risiko yang ketat untuk mengorkestrasi pertumbuhan portofolio yang stabil dan berkelanjutan bagi masa depan."</p>
             </div>
         </section>
 
         <section id="expertise">
-            <span class="label" style="text-align: center; display: block; margin-bottom: 30px;">03. My Expertise</span>
-            <div class="grid-cards">
-                <div class="card" data-aos="fade-right">
-                    <img src="keahlian.jpg" class="card-img" alt="Setup">
-                    <h3 style="margin-bottom: 10px;">Trading Setup</h3>
-                    <p style="font-size: 0.85rem; opacity: 0.6;">High-precision price action analysis with systematic entry points.</p>
+            <span class="label">03 / My Expertise</span>
+            <div class="grid-expertise">
+                <div class="card-exp" data-aos="zoom-in">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Trading Setup</h3>
+                    <p>Analisis Price Action presisi tinggi dengan sistem entri yang terukur dan disiplin.</p>
                 </div>
-                <div class="card" data-aos="fade-left">
-                    <img src="keahlian2.jpg" class="card-img" alt="Analysis">
-                    <h3 style="margin-bottom: 10px;">Market Analysis</h3>
-                    <p style="font-size: 0.85rem; opacity: 0.6;">Deep understanding of supply and demand market cycles.</p>
+                <div class="card-exp" data-aos="zoom-in" data-aos-delay="150">
+                    <i class="fas fa-microscope"></i>
+                    <h3>Market Analysis</h3>
+                    <p>Pemahaman siklus Supply & Demand pasar untuk memetakan peluang keuntungan maksimal.</p>
                 </div>
             </div>
         </section>
 
-        <footer>&copy; 2026 Ahmad Zaky | JeksStars Professional Portfolio</footer>
+        <footer>
+            &copy; 2026 Ahmad Zaky | JeksStars Professional Portfolio
+        </footer>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Efek Bintang Silver Klik (Sekarang di Kartu Profil)
+        // Efek Ledakan Bintang Silver saat Klik Kartu
         const profileCard = document.getElementById('profileCard');
-
         profileCard.addEventListener('click', function(e) {
-            // Animasi Flash pada gambar
-            this.style.filter = "brightness(1.5)";
-            setTimeout(() => this.style.filter = "brightness(1)", 300);
+            // Animasi Flash Terang
+            this.style.filter = "brightness(1.8)";
+            setTimeout(() => this.style.filter = "brightness(1)", 400);
 
-            // Munculkan Bintang Silver
             for (let i = 0; i < 15; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star-particle');
                 this.appendChild(star);
                 
                 const angle = Math.random() * Math.PI * 2;
-                const dist = 70 + Math.random() * 90;
+                const dist = 80 + Math.random() * 120;
                 const x = Math.cos(angle) * dist;
                 const y = Math.sin(angle) * dist;
-                
+
                 star.animate([
                     { transform: 'translate(-50%, -50%) scale(0)', opacity: 0 },
-                    { transform: 'translate(-50%, -50%) scale(1.2)', opacity: 1, offset: 0.2 },
+                    { transform: 'translate(-50%, -50%) scale(1.5)', opacity: 1, offset: 0.2 },
                     { transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(0)`, opacity: 0 }
-                ], { duration: 1200, easing: 'cubic-bezier(0.1, 0.8, 0.4, 1)' }).onfinish = () => star.remove();
+                ], { duration: 1500, easing: 'cubic-bezier(0.1, 0.8, 0.4, 1)' }).onfinish = () => star.remove();
             }
         });
     </script>
