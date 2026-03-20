@@ -25,10 +25,12 @@
         /* --- BACKGROUND --- */
         .bg-animate {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 40%);
+            background: radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 40%);
             z-index: -2;
         }
 
+        /* --- HEADER & NAV (RESTORASI TOTAL) --- */
         header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(15px);
@@ -37,73 +39,103 @@
         .header-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; justify-content: space-between; align-items: center; }
         .logo-text h2 { font-size: 1.3rem; letter-spacing: 3px; font-weight: 800; text-transform: uppercase; }
 
-        /* --- LOGO 3D --- */
-        .page-logo-wrapper { display: flex; justify-content: center; perspective: 1000px; margin-bottom: 30px; }
-        .rotating-logo-container { 
-            width: 140px; height: 140px; position: relative; 
-            transform-style: preserve-3d; animation: spin3D 12s infinite linear; 
+        .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
+        .nav-links a, .nav-links span { text-decoration: none; color: #9ca3af; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        .nav-links a:hover, .nav-links span:hover { color: #fff; }
+
+        .menu-toggle { display: none; font-size: 1.5rem; color: #fff; cursor: pointer; }
+
+        /* MOBILE NAV */
+        .mobile-nav {
+            position: fixed; top: 0; right: -100%; width: 80%; height: 100vh;
+            background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(25px);
+            z-index: 5000; padding: 100px 40px; display: flex; flex-direction: column; gap: 35px;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); border-left: 1px solid var(--border);
         }
+        .mobile-nav.active { right: 0; }
+        .mobile-nav a, .mobile-nav span { text-decoration: none; color: #fff; font-size: 1.5rem; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+
+        /* --- LOGO 3D NYATA --- */
+        .page-logo-wrapper { display: flex; justify-content: center; perspectiva: 1000px; margin-bottom: 30px; }
+        .rotating-logo-container { width: 150px; height: 150px; position: relative; transform-style: preserve-3d; animation: spin3D 12s infinite linear; }
         .rotating-logo-container img {
             width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
             position: absolute; transform: translateZ(15px);
-            filter: drop-shadow(0 0 15px var(--primary)); border: 2px solid var(--primary);
+            filter: drop-shadow(0 0 15px var(--primary)); border: 2px solid var(--border);
+            mix-blend-mode: lighten;
         }
-        .rotating-logo-container::before {
-            content: ""; position: absolute; width: 100%; height: 100%; border-radius: 50%;
-            background: var(--primary); transform: translateZ(-15px); opacity: 0.3;
+        .rotating-logo-container::after {
+            content: ""; position: absolute; inset: 0; border-radius: 50%;
+            background: rgba(168, 85, 247, 0.3); transform: translateZ(-10px); filter: blur(2px);
         }
-        @keyframes spin3D { from { transform: rotateY(0deg); } to { transform: rotateY(-360deg); } }
+        @keyframes spin3D { 0% { transform: rotateY(0deg) rotateX(5deg); } 100% { transform: rotateY(-360deg) rotateX(5deg); } }
 
-        /* --- HERO & PHOTO PROFILE --- */
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
-        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: space-between; gap: 50px; padding-top: 100px; }
-        
-        .hero-visual { flex: 0.8; position: relative; }
+        /* --- PHOTO PROFILE & SCAN --- */
+        .hero-visual { flex: 0.8; position: relative; display: flex; justify-content: center; }
         .main-card { 
-            width: 320px; padding: 20px; background: #111827; border-radius: 30px; 
+            width: 320px; padding: 25px; background: #111827; border-radius: 35px; 
             position: relative; overflow: hidden; border: 1px solid var(--border);
         }
         .profile-img { width: 100%; border-radius: 20px; position: relative; z-index: 1; }
 
-        /* SCAN PROFILE: Kanan-Bawah ke Kiri-Atas */
+        /* SCAN PROFILE: Kanan-Bawah ke Kiri-Atas (Menimpa) */
         .scan-line-profile {
-            position: absolute; width: 150%; height: 15px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            position: absolute; width: 150%; height: 25px;
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.8), transparent);
             z-index: 10; transform: rotate(-45deg);
             animation: scanProfile 4s infinite linear;
-            box-shadow: 0 0 15px var(--primary);
         }
         @keyframes scanProfile {
             0% { bottom: -20%; right: -50%; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { bottom: 120%; right: 50%; opacity: 0; }
+            100% { bottom: 120%; right: 50%; opacity: 1; }
         }
 
-        /* --- EXPERTISE CARDS --- */
+        /* --- EXPERTISE CARDS (BERSIH TOTAL DI HALAMAN UTAMA) --- */
         .expertise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 80px 0; }
         .card-exp { 
-            background: var(--card-bg); border-radius: 25px; padding: 30px; 
+            background: var(--card-bg); border-radius: 25px; padding: 40px; 
             position: relative; overflow: hidden; border: 1px solid var(--border);
             cursor: pointer; transition: 0.4s;
         }
+        .card-exp:hover { border-color: var(--primary); transform: translateY(-10px); }
 
         /* SCAN EXPERTISE: Kiri ke Kanan (Tipis) */
         .scan-line-exp {
-            position: absolute; width: 3px; height: 100%; top: 0; left: -10%;
-            background: var(--primary); box-shadow: 0 0 10px var(--primary);
-            z-index: 5; animation: scanExp 3s infinite ease-in-out;
+            position: absolute; width: 4px; height: 100%; top: 0; left: -20%;
+            background: var(--primary); box-shadow: 0 0 15px var(--primary);
+            z-index: 5; animation: scanExp 4s infinite linear;
         }
-        @keyframes scanExp {
-            0% { left: -5%; }
-            100% { left: 105%; }
-        }
+        @keyframes scanExp { 0% { left: -10%; } 100% { left: 110%; } }
 
-        /* PURPLE FIRE EDGE ANIMATION */
-        .card-exp::before {
-            content: ""; position: absolute; inset: 0;
-            padding: 2px; border-radius: 25px;
-            background: conic-gradient(from var(--angle), transparent, var(--primary), transparent);
+        .hint-text { display: block; font-size: 0.7rem; color: var(--primary); text-transform: uppercase; margin-top: 15px; font-weight: 800; letter-spacing: 1px; }
+
+        /* --- MODAL SYSTEM --- */
+        .modal-overlay { 
+            display: none; position: fixed; inset: 0; background: rgba(3, 7, 18, 0.7); 
+            backdrop-filter: blur(20px); z-index: 6000; justify-content: center; align-items: center; 
+        }
+        .modal-overlay.active { display: flex; }
+        
+        /* Modal About (Visi Misi) */
+        .modal-content { background: rgba(15, 23, 42, 0.85); padding: 40px; border-radius: 35px; border: 1px solid var(--primary); max-width: 550px; width: 90%; position: relative; overflow: hidden; }
+        #fire-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+        
+        .modal-text { text-align: left; position: relative; z-index: 10; }
+        .modal-text h2 { color: var(--primary); margin-bottom: 25px; text-align: center; font-size: 2rem; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .modal-text p { color: #cbd5e1; line-height: 1.9; margin-bottom: 15px; }
+
+        /* --- 2. PERBAIKAN: MODAL FOTO DENGAN API BERPUTAR MENGELILINGI FOTO (UX FIX TOMBOL X MENEMPEL) --- */
+        .img-container { 
+            position: relative; display: inline-block; max-width: 85%; 
+            padding: 4px; /* Ruang untuk api berputar */
+            border-radius: 20px;
+            overflow: hidden; /* Penting untuk api */
+        }
+        
+        /* API UNGU BERPUTAR (conic-gradient) DI DALAM MODAL FOTO */
+        .img-container::before {
+            content: ""; position: absolute; inset: 0; padding: 4px; border-radius: 20px;
+            background: conic-gradient(from var(--angle), transparent, var(--primary), var(--primary), transparent);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor; mask-composite: exclude;
@@ -111,29 +143,24 @@
         }
         @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
         @keyframes rotateFire { to { --angle: 360deg; } }
-
-        .hint-text { 
-            display: block; font-size: 0.65rem; color: var(--primary); 
-            text-transform: uppercase; letter-spacing: 2px; margin-top: 15px;
-            opacity: 0.7; font-weight: 800;
-        }
-
-        /* --- MODAL --- */
-        .modal-overlay { 
-            display: none; position: fixed; inset: 0; background: rgba(3, 7, 18, 0.8); 
-            backdrop-filter: blur(15px); z-index: 2000; justify-content: center; align-items: center; 
-        }
-        .modal-overlay.active { display: flex; }
-        .img-box { position: relative; max-width: 85%; }
-        .close-btn {
-            position: absolute; top: -15px; right: -15px; width: 35px; height: 35px;
+        
+        /* Gambar Utama Modal */
+        #modalImg { width: 100%; border-radius: 18px; display: block; position: relative; z-index: 2; border: 3px solid var(--primary); box-shadow: 0 0 30px rgba(168, 85, 247, 0.5); }
+        
+        /* Tombol X Menempel */
+        .close-btn-fixed {
+            position: absolute; top: -15px; right: -15px; width: 40px; height: 40px;
             background: var(--primary); color: white; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-            border: 2px solid white; box-shadow: 0 0 15px var(--primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; cursor: pointer; z-index: 7000;
+            border: 2px solid white; box-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
+            transition: 0.3s;
         }
 
         @media (max-width: 850px) {
-            .hero { flex-direction: column; text-align: center; }
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .hero { flex-direction: column; text-align: center; padding-top: 130px; }
             .expertise-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -145,68 +172,119 @@
     <header>
         <div class="header-container">
             <div class="logo-text"><h2>JEKSTRADER</h2></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><span onclick="openAbout()">About</span></li>
+                <li><a href="#expertise">Expertise</a></li>
+                <li><a href="https://wa.me/62895383165361" style="color:var(--primary); font-weight:800; text-transform:uppercase;" target="_blank">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
         </div>
     </header>
 
+    <div class="mobile-nav" id="mobileNav">
+        <span onclick="toggleMenu()" style="position:absolute; top:25px; right:25px; font-size:2.5rem; color:white;">&times;</span>
+        <a href="#home" onclick="toggleMenu()">Home</a>
+        <span onclick="openAbout(); toggleMenu()">About</span>
+        <a href="#expertise" onclick="toggleMenu()">Expertise</a>
+        <a href="https://wa.me/62895383165361" onclick="toggleMenu()" style="color:var(--primary);" target="_blank">Contact</a>
+    </div>
+
     <div class="container">
-        <section class="hero">
+        <section class="hero" id="home">
             <div class="hero-text" data-aos="fade-right">
                 <div class="page-logo-wrapper">
                     <div class="rotating-logo-container">
                         <img src="logo.jpg" alt="Logo">
                     </div>
                 </div>
-                <p style="color:var(--primary); font-weight:800; letter-spacing:3px;">TRADE LIKE A STAR</p>
-                <h1 style="font-size: 3.5rem; margin: 10px 0;">Ahmad Zaky</h1>
-                <p style="color:#9ca3af; margin-bottom: 30px;">Professional Trader focusing on XAU/USD technical analysis and consistent growth.</p>
+                <p style="color:var(--gold); font-weight:800; text-transform:uppercase; letter-spacing:2px;">Trade Like A Star</p>
+                <h1 style="font-size:3.5rem; margin:15px 0;">Ahmad Zaky</h1>
+                <p style="color:#9ca3af; line-height:1.8; margin-bottom:30px;">Sebagai trader profesional, saya fokus pada hasil yang konsisten melalui disiplin dan analisis yang tajam.</p>
+                <div style="display:flex; gap:15px;">
+                    <a href="https://wa.me/62895383165361" target="_blank" style="color:white; font-size:1.5rem;"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/whojekys" target="_blank" style="color:white; font-size:1.5rem;"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com/@whojekys" target="_blank" style="color:white; font-size:1.5rem;"><i class="fab fa-tiktok"></i></a>
+                </div>
             </div>
 
             <div class="hero-visual" data-aos="fade-left">
                 <div class="main-card">
                     <div class="scan-line-profile"></div>
                     <img src="wajah.jpg" class="profile-img">
-                    <p style="margin-top:15px; font-weight:800; color:var(--primary);">PRO TRADER</p>
+                    <h3 style="margin-top:15px;">JEKSSTARS</h3>
+                    <p style="color:var(--accent); font-weight:800; font-size:0.8rem;">PRO TRADER</p>
                 </div>
             </div>
         </section>
 
-        <section class="expertise-grid">
-            <div class="card-exp" data-aos="fade-up" onclick="openImg('keahlian.jpg')">
+        <section id="expertise" class="expertise-grid">
+            <div class="card-exp" data-aos="fade-up" onclick="showImg('keahlian.jpg')">
                 <div class="scan-line-exp"></div>
-                <i class="fas fa-chart-line" style="font-size:2rem; color:var(--primary); margin-bottom:15px; display:block;"></i>
-                <h3 style="letter-spacing:1px;">TECHNICAL ANALYSIS</h3>
-                <p style="font-size:0.9rem; color:#9ca3af; margin-top:10px;">Mastering Price Action and market structure for high-probability setups.</p>
-                <span class="hint-text">VIEW DETAIL <i class="fas fa-arrow-right"></i></span>
+                <i class="fas fa-chart-line" style="font-size:2.5rem; color:var(--primary); margin-bottom:20px; display:block;"></i>
+                <h3>SUPPORT & RESISTANCE</h3>
+                <p style="color:#9ca3af; margin-top:10px;">Memetakan area harga krusial untuk menentukan titik pantulan yang valid.</p>
+                <span class="hint-text">CLICK TO ENLARGE <i class="fas fa-search-plus"></i></span>
             </div>
-
-            <div class="card-exp" data-aos="fade-up" data-aos-delay="100" onclick="openImg('keahlian2.jpg')">
+            <div class="card-exp" data-aos="fade-up" data-aos-delay="100" onclick="showImg('keahlian2.jpg')">
                 <div class="scan-line-exp"></div>
-                <i class="fas fa-shield-halved" style="font-size:2rem; color:var(--primary); margin-bottom:15px; display:block;"></i>
-                <h3 style="letter-spacing:1px;">RISK MANAGEMENT</h3>
-                <p style="font-size:0.9rem; color:#9ca3af; margin-top:10px;">Strict money management to preserve capital and ensure long-term survival.</p>
-                <span class="hint-text">VIEW DETAIL <i class="fas fa-arrow-right"></i></span>
+                <i class="fas fa-money-bill-trend-up" style="font-size:2.5rem; color:var(--primary); margin-bottom:20px; display:block;"></i>
+                <h3>ANALISIS & SET UP</h3>
+                <p style="color:#9ca3af; margin-top:10px;">Menyusun set up trading berdasarkan analisis market terakhir.</p>
+                <span class="hint-text">CLICK TO ENLARGE <i class="fas fa-search-plus"></i></span>
             </div>
         </section>
     </div>
 
+    <div class="modal-overlay" id="modalAbout">
+        <canvas id="fire-canvas"></canvas>
+        <div class="modal-content">
+            <span style="position:absolute; top:15px; right:25px; font-size:2rem; cursor:pointer; z-index:20; color:white;" onclick="closeAbout()">&times;</span>
+            <div style="position:relative; z-index:10;">
+                <h2 style="text-align:center; color:var(--primary); margin-bottom:20px;">Visi & Misi JeksStars</h2>
+                <p style="margin-bottom:15px;">• <strong>Visi:</strong> Menjadi platform edukasi trading terdepan yang membantu trader mencapai kemandirian finansial.</p>
+                <p>• <strong>Misi:</strong> Memberikan analisis pasar yang akurat, membangun mentalitas disiplin, dan menyediakan strategi teruji bagi komunitas.</p>
+            </div>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="modalFoto" onclick="closeImg()">
-        <div class="img-box" onclick="event.stopPropagation()">
-            <div class="close-btn" onclick="closeImg()"><i class="fas fa-times"></i></div>
-            <img src="" id="modalImg" style="width:100%; border-radius:15px; border:2px solid var(--primary);">
+        <div class="img-container" onclick="event.stopPropagation()">
+            <span class="close-btn-fixed" onclick="closeImg()">&times;</span>
+            <img src="" id="modalImg">
         </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
-        function openImg(src) {
-            document.getElementById('modalFoto').classList.add('active');
-            document.getElementById('modalImg').src = src;
-            document.body.style.overflow = 'hidden';
+        function toggleMenu() { document.getElementById('mobileNav').classList.toggle('active'); }
+        function openAbout() { document.getElementById('modalAbout').classList.add('active'); startFire(); document.body.style.overflow = 'hidden'; }
+        function closeAbout() { document.getElementById('modalAbout').classList.remove('active'); document.body.style.overflow = 'auto'; }
+        
+        function showImg(src) { 
+            document.getElementById('modalFoto').classList.add('active'); 
+            document.getElementById('modalImg').src = src; 
+            document.body.style.overflow = 'hidden'; 
         }
-        function closeImg() {
-            document.getElementById('modalFoto').classList.remove('active');
-            document.body.style.overflow = 'auto';
+        function closeImg() { document.getElementById('modalFoto').classList.remove('active'); document.body.style.overflow = 'auto'; }
+
+        // --- API PARTIKEL (HANYA UNTUK MODAL ABOUT / VISI MISI) ---
+        const canvasAbout = document.getElementById('fire-canvas');
+        const ctxAbout = canvasAbout.getContext('2d');
+        let particlesAbout = [];
+        function startFire() {
+            canvasAbout.width = window.innerWidth; canvasAbout.height = window.innerHeight;
+            particlesAbout = []; 
+            for (let i = 0; i < 50; i++) {
+                particlesAbout.push({x: Math.random() * canvasAbout.width, y: canvasAbout.height + 20, size: Math.random() * 3 + 1, speedY: Math.random() * 2 + 0.5, opacity: Math.random() * 0.5});
+            } animateFireAbout();
+        }
+        function animateFireAbout() {
+            if (!document.getElementById('modalAbout').classList.contains('active')) return;
+            ctxAbout.clearRect(0, 0, canvasAbout.width, canvasAbout.height);
+            particlesAbout.forEach(p => { p.y -= p.speedY; if (p.y < 0) p.y = canvasAbout.height + 20; ctxAbout.fillStyle = `rgba(168, 85, 247, ${p.opacity})`; ctxAbout.beginPath(); ctxAbout.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxAbout.fill(); });
+            requestAnimationFrame(animateFireAbout);
         }
     </script>
 </body>
