@@ -15,7 +15,7 @@
             --accent: #00f2ff;
             --gold: linear-gradient(135deg, #ffd700 0%, #fff9c4 50%, #ffb300 100%);
             --bg: #030712;
-            --card-bg: rgba(17, 24, 39, 0.8);
+            --card-bg: rgba(17, 24, 39, 0.9);
             --border: rgba(255, 255, 255, 0.1);
         }
 
@@ -33,27 +33,25 @@
         }
         @keyframes moveBg { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
 
-        /* --- HEADER --- */
+        /* --- HEADER & NAV --- */
         header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(15px);
+            background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border); padding: 15px 0;
         }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: flex; justify-content: space-between; align-items: center; }
         .logo-text h2 { font-size: 1.3rem; letter-spacing: 3px; font-weight: 800; text-transform: uppercase; }
 
-        /* Nav Desktop */
         .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
         .nav-links a, .nav-links span { text-decoration: none; color: #9ca3af; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
         .nav-links a:hover, .nav-links span:hover { color: #fff; }
 
         .menu-toggle { display: none; font-size: 1.5rem; color: #fff; cursor: pointer; }
 
-        /* --- MOBILE NAVIGATION (FIXED) --- */
+        /* --- MOBILE NAVIGATION --- */
         .mobile-nav {
             position: fixed; top: 0; right: -100%; width: 80%; height: 100vh;
-            background: rgba(3, 7, 18, 0.7); /* Transparan */
-            backdrop-filter: blur(25px); /* Efek Blur ke Home */
+            background: rgba(3, 7, 18, 0.75); backdrop-filter: blur(25px);
             z-index: 5000; padding: 100px 40px;
             display: flex; flex-direction: column; gap: 35px;
             transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -63,16 +61,20 @@
         .mobile-nav a, .mobile-nav span { text-decoration: none; color: #fff; font-size: 1.5rem; font-weight: 800; text-transform: uppercase; cursor: pointer; }
         .close-menu { position: absolute; top: 25px; right: 25px; font-size: 2.5rem; color: #fff; cursor: pointer; }
 
-        /* --- LOGO PERBAIKAN TRANSPARANSI --- */
-        .page-logo-wrapper { display: flex; justify-content: center; align-items: center; margin-bottom: 30px; }
-        .rotating-logo-container { width: 160px; height: 160px; position: relative; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        /* --- LOGO 3D NYATA --- */
+        .page-logo-wrapper { display: flex; justify-content: center; align-items: center; margin-bottom: 30px; perspective: 1000px; }
+        .rotating-logo-container { width: 150px; height: 150px; position: relative; transform-style: preserve-3d; animation: spin3D 12s infinite linear; }
         .rotating-logo-container img {
-            width: 110%; height: 110%; object-fit: cover;
-            animation: spinY 12s infinite linear;
-            mix-blend-mode: lighten; 
-            filter: contrast(120%) brightness(110%) drop-shadow(0 0 10px var(--primary));
+            width: 100%; height: 100%; object-fit: cover; position: absolute; border-radius: 50%;
+            mix-blend-mode: lighten; transform: translateZ(10px);
+            filter: contrast(120%) brightness(110%) drop-shadow(0 0 15px var(--primary));
+            border: 2px solid var(--border);
         }
-        @keyframes spinY { from { transform: rotateY(0deg); } to { transform: rotateY(-360deg); } }
+        .rotating-logo-container::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%;
+            background: rgba(168, 85, 247, 0.3); transform: translateZ(-10px); filter: blur(2px);
+        }
+        @keyframes spin3D { 0% { transform: rotateY(0deg) rotateX(5deg); } 100% { transform: rotateY(-360deg) rotateX(5deg); } }
 
         /* --- HERO --- */
         .container { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
@@ -84,33 +86,55 @@
         
         .social-icons { display: flex; gap: 15px; }
         .icon-box { width: 50px; height: 50px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; transition: 0.3s; }
+        .icon-box:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-5px); box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4); }
 
-        /* --- FOTO PROFIL --- */
+        /* --- FOTO PROFIL & NEON SCAN --- */
         .hero-visual { flex: 0.8; display: flex; justify-content: center; position: relative; }
-        .main-card { width: 320px; padding: 25px; background: #111827; border-radius: 35px; border: 1px solid var(--border); text-align: center; position: relative; z-index: 10; cursor: pointer; }
-        .profile-img { width: 100%; border-radius: 20px; margin-bottom: 20px; }
-        .glow-effect { position: absolute; width: 100%; height: 100%; background: radial-gradient(circle, rgba(168, 85, 247, 0.5) 0%, transparent 70%); border-radius: 50%; filter: blur(50px); z-index: 1; animation: pulse 4s infinite alternate; }
-        @keyframes pulse { from { transform: scale(0.8); } to { transform: scale(1.1); } }
+        .main-card { width: 320px; padding: 25px; background: #111827; border-radius: 35px; border: 1px solid var(--border); text-align: center; position: relative; z-index: 10; cursor: pointer; overflow: hidden; }
+        .profile-img { width: 100%; border-radius: 20px; margin-bottom: 20px; position: relative; z-index: 2; }
+        
+        .neon-scan {
+            position: absolute; width: 150%; height: 25px; 
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.7), transparent);
+            z-index: 1; transform: rotate(-45deg);
+            animation: moveNeonScan 4s infinite linear;
+        }
+        @keyframes moveNeonScan { 0% { top: 120%; left: -50%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: -20%; left: 50%; opacity: 0; } }
+
+        .glow-effect { position: absolute; width: 100%; height: 100%; background: radial-gradient(circle, rgba(168, 85, 247, 0.5) 0%, transparent 70%); border-radius: 50%; filter: blur(50px); z-index: 0; animation: pulseluar 4s infinite alternate; }
+        @keyframes pulseluar { from { transform: scale(0.8); } to { transform: scale(1.1); } }
 
         /* --- EXPERTISE --- */
         .expertise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 80px 0; padding-bottom: 100px; }
         .card-exp { background: var(--card-bg); border: 1px solid var(--border); border-radius: 25px; padding: 40px; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; }
         .card-exp:hover { border-color: var(--primary); transform: translateY(-10px); }
-        .card-exp i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; display: block; }
-        .click-hint { font-size: 0.75rem; color: var(--primary); font-weight: 800; text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
-        .scan-line { position: absolute; width: 15px; height: 100%; top: 0; left: -100%; background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.4), transparent); animation: moveScanLine 5s infinite linear; }
-        @keyframes moveScanLine { 0% { left: -20%; } 100% { left: 120%; } }
+        .card-exp i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; display: block; position: relative; z-index: 2; }
+        .expertise-grid .neon-scan { animation-duration: 6s; animation-delay: 1s; }
 
-        /* --- MODAL (FIXED TRANSPARENT BLUR) --- */
+        /* --- MODAL SYSTEM --- */
         .modal-overlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(3, 7, 18, 0.6); /* Transparan */
-            backdrop-filter: blur(20px); /* Blur ke Home */
+            background: rgba(3, 7, 18, 0.7); backdrop-filter: blur(20px); 
             z-index: 6000; justify-content: center; align-items: center; 
         }
         .modal-overlay.active { display: flex; }
-        .modal-content { background: rgba(15, 23, 42, 0.8); padding: 40px; border-radius: 35px; border: 1px solid var(--primary); max-width: 550px; width: 90%; position: relative; text-align: center; }
         
+        /* Modal About (Visi Misi) */
+        .modal-content { background: rgba(15, 23, 42, 0.85); padding: 40px; border-radius: 35px; border: 1px solid var(--primary); max-width: 550px; width: 90%; position: relative; text-align: center; overflow: hidden; }
+        #fire-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .modal-text { text-align: left; position: relative; z-index: 10; }
+        
+        /* Close Button for Image Modal (UX Perbaikan) */
+        .img-container { position: relative; display: inline-block; max-width: 85%; }
+        .close-btn-fixed {
+            position: absolute; top: -15px; right: -15px; width: 40px; height: 40px;
+            background: var(--primary); color: #fff; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; cursor: pointer; z-index: 7000;
+            border: 2px solid #fff; box-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
+            transition: 0.3s;
+        }
+
         @media (max-width: 850px) {
             .nav-links { display: none; }
             .menu-toggle { display: block; }
@@ -131,7 +155,7 @@
                 <li><a href="#home">Home</a></li>
                 <li><span onclick="openAbout()">About</span></li>
                 <li><a href="#expertise">Expertise</a></li>
-                <li><a href="https://wa.me/62895383165361" style="color:var(--primary); font-weight:800;">Contact</a></li>
+                <li><a href="https://wa.me/62895383165361" style="color:var(--primary); font-weight:800;" target="_blank">Contact</a></li>
             </ul>
             <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
         </div>
@@ -142,7 +166,7 @@
         <a href="#home" onclick="toggleMenu()">Home</a>
         <span onclick="openAbout(); toggleMenu()">About</span>
         <a href="#expertise" onclick="toggleMenu()">Expertise</a>
-        <a href="https://wa.me/62895383165361" onclick="toggleMenu()">Contact</a>
+        <a href="https://wa.me/62895383165361" onclick="toggleMenu()" style="color:var(--primary);" target="_blank">Contact</a>
     </div>
 
     <div class="container">
@@ -157,15 +181,17 @@
                 <h1>Ahmad Zaky</h1>
                 <p class="hero-description">Sebagai trader profesional, saya fokus pada hasil yang konsisten melalui disiplin dan analisis yang tajam.</p>
                 <div class="social-icons">
-                    <a href="https://wa.me/62895383165361" class="icon-box"><i class="fab fa-whatsapp"></i></a>
-                    <a href="https://instagram.com/whojekys" class="icon-box"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/62895383165361" class="icon-box" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/whojekys" class="icon-box" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com/@whojekys" class="icon-box" target="_blank"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
 
             <div class="hero-visual" data-aos="fade-left">
                 <div class="main-card" data-tilt>
+                    <div class="neon-scan"></div>
                     <div class="glow-effect"></div>
-                    <img src="wajah.jpg" class="profile-img">
+                    <img src="wajah.jpg" class="profile-img" alt="Zaky">
                     <h3>JEKSSTARS</h3>
                     <p style="color:var(--accent); font-weight:800; font-size:0.85rem;">PRO TRADER</p>
                 </div>
@@ -174,16 +200,14 @@
 
         <section id="expertise" class="expertise-grid">
             <div class="card-exp" data-aos="fade-up" onclick="showImg('keahlian.jpg')">
-                <div class="scan-line"></div>
+                <div class="neon-scan"></div>
                 <i class="fas fa-chart-line"></i>
-                <div class="click-hint"><i class="fas fa-eye"></i> (Click to view analysis)</div>
                 <h3>SUPPORT & RESISTANCE</h3>
                 <p>Memetakan area harga krusial untuk menentukan titik pantulan yang valid.</p>
             </div>
             <div class="card-exp" data-aos="fade-up" data-aos-delay="100" onclick="showImg('keahlian2.jpg')">
-                <div class="scan-line"></div>
+                <div class="neon-scan"></div>
                 <i class="fas fa-money-bill-trend-up"></i>
-                <div class="click-hint"><i class="fas fa-eye"></i> (Click to view analysis)</div>
                 <h3>ANALISIS & SET UP</h3>
                 <p>Menyusun set up trading berdasarkan analisis market terakhir.</p>
             </div>
@@ -191,38 +215,54 @@
     </div>
 
     <div class="modal-overlay" id="modalAbout">
+        <canvas id="fire-canvas"></canvas>
         <div class="modal-content">
-            <span style="position:absolute; top:15px; right:25px; font-size:2rem; color:#fff; cursor:pointer;" onclick="closeAbout()">&times;</span>
-            <h2 style="color:var(--primary); margin-bottom:20px;">Visi & Misi JeksStars</h2>
-            <div style="text-align:left; color:#cbd5e1; line-height:1.8;">
+            <span style="position:absolute; top:15px; right:25px; font-size:2rem; color:#fff; cursor:pointer; z-index:20;" onclick="closeAbout()">&times;</span>
+            <div class="modal-text">
+                <h2 style="text-align:center; color:var(--primary); margin-bottom:20px;">Visi & Misi JeksStars</h2>
                 <p>• <strong>Visi:</strong> Menjadi platform edukasi trading terdepan yang membantu trader mencapai kemandirian finansial.</p>
-                <p>• <strong>Misi:</strong> Memberikan analisis pasar yang akurat, membangun mentalitas disiplin, dan menyediakan strategi teruji bagi komunitas.</p>
+                <p>• <strong>Misi:</strong> Memberikan analisis pasar yang akurat, membangun mentalitas disiplin, dan menyediakan strategi teruji.</p>
             </div>
         </div>
     </div>
 
-    <div class="modal-overlay" id="modalFoto">
-        <span onclick="closeImg()" style="position:absolute; top:20px; right:30px; font-size:3rem; color:#fff; cursor:pointer;">&times;</span>
-        <img src="" id="modalImg" style="max-width:85%; max-height:80vh; border:3px solid var(--primary); border-radius:20px;">
+    <div class="modal-overlay" id="modalFoto" onclick="closeImg()">
+        <div class="img-container" onclick="event.stopPropagation()">
+            <span class="close-btn-fixed" onclick="closeImg()"><i class="fas fa-times"></i></span>
+            <img src="" id="modalImg" style="width:100%; border-radius:20px; border:3px solid var(--primary);">
+        </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
-
-        // FUNGSI NAVIGASI MOBILE
-        function toggleMenu() {
-            const menu = document.getElementById('mobileNav');
-            menu.classList.toggle('active');
-        }
-
-        function openAbout() { document.getElementById('modalAbout').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function toggleMenu() { document.getElementById('mobileNav').classList.toggle('active'); }
+        function openAbout() { document.getElementById('modalAbout').classList.add('active'); startFire(); document.body.style.overflow = 'hidden'; }
         function closeAbout() { document.getElementById('modalAbout').classList.remove('active'); document.body.style.overflow = 'auto'; }
         function showImg(src) { document.getElementById('modalFoto').classList.add('active'); document.getElementById('modalImg').src = src; document.body.style.overflow = 'hidden'; }
         function closeImg() { document.getElementById('modalFoto').classList.remove('active'); document.body.style.overflow = 'auto'; }
 
         VanillaTilt.init(document.querySelector(".main-card"), { max: 15, speed: 800, glare: true, "max-glare": 0.4 });
+
+        // LOGIKA API UNGU
+        const canvas = document.getElementById('fire-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function startFire() {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            particles = []; 
+            for (let i = 0; i < 60; i++) {
+                particles.push({x: Math.random() * canvas.width, y: canvas.height + 50, size: Math.random() * 3 + 1, speedY: Math.random() * 2 + 0.5, opacity: Math.random() * 0.5 + 0.1});
+            } animateFire();
+        }
+        function animateFire() {
+            if (!document.getElementById('modalAbout').classList.contains('active')) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.y -= p.speedY; if (p.y < 0) p.y = canvas.height + 50; ctx.fillStyle = `rgba(168, 85, 247, ${p.opacity})`; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); });
+            requestAnimationFrame(animateFire);
+        }
     </script>
 </body>
-</html>
+                        </html>
+    
